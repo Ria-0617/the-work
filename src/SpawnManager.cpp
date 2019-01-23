@@ -16,8 +16,8 @@ void SpawnManager::EnemySpowner(float s) {
 	enemys.push_back(p);
 }
 
-void SpawnManager::EnemyDraw() {
-	for (const auto& itr : enemys) { 
-		itr->Draw();
-	}
-}
+//void SpawnManager::EnemyDraw() {
+//	for (const auto& itr : enemys) { 
+//		itr->ExecuteDraw();
+//	}
+//}

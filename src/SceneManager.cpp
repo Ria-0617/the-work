@@ -5,7 +5,8 @@ using namespace ci::app;
 using namespace std;
 
 SceneManager::SceneManager() {
-	currentScene = std::make_unique<Title>();
+	//currentScene = std::make_unique<Title>();
+	currentScene = new Title();
 }
 
 void SceneManager::Update() {
@@ -13,13 +14,14 @@ void SceneManager::Update() {
 }
 
 void SceneManager::Draw() {
-	currentScene->Draw(this);
+	currentScene->ExecuteDraw(this);
 }
 
-void SceneManager::ChangeScene(BaseScene* newScene) {
+void SceneManager::ChangeScene(State<SceneManager>* newScene) {
 	assert(currentScene && newScene);
 
-	currentScene->Exit(this);
-	currentScene.reset(newScene);
-	currentScene->Enter(this);
+	currentScene->ExecuteExit(this);
+	//currentScene.reset(newScene);
+	currentScene = newScene;
+	currentScene->ExecuteEnter(this);
 }

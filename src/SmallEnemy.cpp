@@ -16,9 +16,13 @@ SmallEnemy::SmallEnemy(float s) {
 	viewDistanceRange = 15.f;
 }
 
+bool SmallEnemy::OutOfViewRange(Vec3f& pos, float viewAngleRange, float viewDistanceRange) {
+	Vec3f neighbors = (pos - position).normalized();
 
-SmallEnemy::~SmallEnemy() {
-
+	if (direction.dot(neighbors) < viewAngleRange || this->position.distance(pos) > viewDistanceRange) {
+		return true;
+	}
+	return false;
 }
 
 Vec3f SmallEnemy::Separate(list<SmallEnemy>& smallEnemys) {
@@ -76,7 +80,11 @@ Vec3f SmallEnemy::Cohesion(list<SmallEnemy>&smallEnemys) {
 	return (centerPos - position).safeNormalized();
 }
 
-void SmallEnemy::Move() {
+void SmallEnemy::ExecuteEnter(EnemyManager*) {
+
+}
+
+void SmallEnemy::ExecuteUpdate(EnemyManager*) {
 	Vec3f v;
 	v = position;
 	v += Separate(Spowner->getEnemys());
@@ -88,11 +96,15 @@ void SmallEnemy::Move() {
 	MyFanc::MoveLimit(position,/*limitValue = */50, /*moveValue = */100);
 }
 
-void SmallEnemy::Draw() {
+void SmallEnemy::ExecuteDraw(EnemyManager*) {
 	gl::pushModelView();
 
 	gl::color(color);
 	gl::drawCube(position, Vec3f(scale, scale, scale));
 
 	gl::popModelView();
+}
+
+void SmallEnemy::ExecuteExit(EnemyManager*) {
+
 }

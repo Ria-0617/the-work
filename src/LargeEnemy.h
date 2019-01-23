@@ -6,14 +6,28 @@
 
 #include <list>
 #include "Func.h"
-#include "BaseEnemy.h"
+#include "EnemyManager.h"
 
-class LargeEnemy :BaseEnemy {
+class LargeEnemy : public State<EnemyManager> {
+	ci::Vec3f position;
+	ci::Vec3f angle;
+	ci::Vec3f direction;
+	float scale;
+	ci::Color color;
+
+	float viewAngleRange;
+	float viewDistanceRange;
+
+	bool OutOfViewRange(ci::Vec3f&, float, float);
 public:
 	LargeEnemy(float s);
-	~LargeEnemy();
+	~LargeEnemy() {};
 
-	void Move();
+	ci::Vec3f GetPos() { return position; }
+	float GetScale() { return scale; }
 
-	void Draw() override;
+	void ExecuteEnter(EnemyManager*);
+	void ExecuteUpdate(EnemyManager*);
+	void ExecuteDraw(EnemyManager*);
+	void ExecuteExit(EnemyManager*);
 };

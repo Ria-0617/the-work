@@ -5,8 +5,8 @@
 #include "cinder\gl\Light.h"
 #include "cinder\gl\Material.h"
 
+#include "State.h"
 #include "SceneManager.h"
-#include "BaseScene.h"
 #include "Title.h"
 
 #include "GameField.h"
@@ -20,7 +20,7 @@
 
 #include <list>
 
-class GameScene : public BaseScene {
+class GameScene : public State<SceneManager> {
 	std::unique_ptr<GameField> field;
 	std::unique_ptr<GameCamera> camera;
 	std::unique_ptr<Player> player;
@@ -30,9 +30,9 @@ public:
 	GameScene();
 	~GameScene();
 
-	void Enter(SceneManager*);
+	void ExecuteEnter(SceneManager*);
 	void ExecuteUpdate(SceneManager*);
-	void Exit(SceneManager*);
-	void Draw(SceneManager*);
+	void ExecuteExit(SceneManager*);
+	void ExecuteDraw(SceneManager*);
 
 };

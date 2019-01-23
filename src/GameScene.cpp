@@ -16,7 +16,7 @@ GameScene::~GameScene() {
 
 }
 
-void GameScene::Enter(SceneManager*) {
+void GameScene::ExecuteEnter(SceneManager*) {
 
 }
 
@@ -29,7 +29,7 @@ void GameScene::ExecuteUpdate(SceneManager*) {
 	camera->Update(player->GetPosition(), player->GetScale());
 	ui->Update(player->NomalizedExp());
 	
-	Spowner->EnemySpowner(player->GetScale());
+	//Spowner->EnemySpowner(player->GetScale());
 
 	
 	/*for (auto itr = Spowner->getEnemys().begin(); itr != Spowner->getEnemys().end(); ++itr) {
@@ -43,16 +43,16 @@ void GameScene::ExecuteUpdate(SceneManager*) {
 		}
 	}*/
 
-	for (const auto& itr : Spowner->getEnemys()) {
+	/*for (const auto& itr : Spowner->getEnemys()) {
 		itr->Move();
-	}
+	}*/
 }
 
-void GameScene::Exit(SceneManager*) {
+void GameScene::ExecuteExit(SceneManager*) {
 
 }
 
-void GameScene::Draw(SceneManager* manager) {
+void GameScene::ExecuteDraw(SceneManager* manager) {
 #pragma region enable
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
@@ -65,7 +65,7 @@ void GameScene::Draw(SceneManager* manager) {
 	player->Draw();
 
 	// “G•`‰æ
-	Spowner->EnemyDraw();
+	//Spowner->EnemyDraw();
 
 #pragma region disable
 	gl::disableDepthRead();

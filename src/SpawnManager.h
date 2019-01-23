@@ -2,7 +2,6 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
-#include "BaseEnemy.h"
 #include "LargeEnemy.h"
 #include "SmallEnemy.h"
 
@@ -10,8 +9,8 @@
 
 class SpawnManager {
 
-	SpawnManager() {};
-	~SpawnManager() {};
+	SpawnManager() = default;
+	~SpawnManager() = default;
 
 	SpawnManager(const SpawnManager&);
 	SpawnManager& operator=(const SpawnManager&) {};

@@ -3,17 +3,18 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 
-#include "BaseScene.h"
+#include "State.h"
 #include "Title.h"
 
 class SceneManager {
-	std::unique_ptr<BaseScene> currentScene;
+	//std::unique_ptr<State<SceneManager>> currentScene;
+	State<SceneManager>* currentScene;
 public:
 
 	SceneManager();
-	~SceneManager() {};
+	~SceneManager() { delete currentScene; }
 	
 	void Update();
 	void Draw();
-	void ChangeScene(BaseScene* newScene);
+	void ChangeScene(State<SceneManager>* newScene);
 };

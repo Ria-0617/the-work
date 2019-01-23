@@ -5,11 +5,11 @@
 #include "cinder/Camera.h"
 #include "cinder/Text.h"
 
+#include "State.h"
 #include "SceneManager.h"
-#include "BaseScene.h"
 #include "GameScene.h"
 
-class Title : public BaseScene {
+class Title : public State<SceneManager> {
 	ci::CameraOrtho uiCamera;
 
 	//ci::Font customFont;
@@ -21,9 +21,9 @@ public:
 	Title();
 	~Title();
 	
-	void Enter(SceneManager*);
+	void ExecuteEnter(SceneManager*);
 	void ExecuteUpdate(SceneManager*);
-	void Exit(SceneManager*);
-	void Draw(SceneManager*);
+	void ExecuteExit(SceneManager*);
+	void ExecuteDraw(SceneManager*);
 
 };

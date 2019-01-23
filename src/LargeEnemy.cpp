@@ -15,11 +15,16 @@ LargeEnemy::LargeEnemy(float s) {
 	viewDistanceRange = 15.f;
 }
 
-LargeEnemy::~LargeEnemy() {
+bool LargeEnemy::OutOfViewRange(Vec3f& pos, float viewAngleRange, float viewDistanceRange) {
+	Vec3f neighbors = (pos - position).normalized();
 
+	if (direction.dot(neighbors) < viewAngleRange || this->position.distance(pos) > viewDistanceRange) {
+		return true;
+	}
+	return false;
 }
 
-void LargeEnemy::Move() {
+void LargeEnemy::ExecuteUpdate(EnemyManager*) {
 	//OutOfViewRange(viewAngleRange, viewDistanceRange) {
 
 	//}
@@ -27,11 +32,20 @@ void LargeEnemy::Move() {
 	//MyFanc::MoveLimit(position,/*limitValue = */50, /*moveValue = */100);
 }
 
-void LargeEnemy::Draw() {
+void LargeEnemy::ExecuteEnter(EnemyManager*) {
+
+}
+
+
+void LargeEnemy::ExecuteDraw(EnemyManager*) {
 	gl::pushModelView();
 
 	gl::color(color);
 	gl::drawCube(position, Vec3f(scale, scale, scale));
 
 	gl::popModelView();
+}
+
+void LargeEnemy::ExecuteExit(EnemyManager*) {
+
 }

@@ -15,7 +15,7 @@ Title::~Title() {
 
 }
 
-void Title::Enter(SceneManager*) {
+void Title::ExecuteEnter(SceneManager*) {
 
 }
 
@@ -23,11 +23,11 @@ void Title::ExecuteUpdate(SceneManager*) {
 
 }
 
-void Title::Exit(SceneManager*) {
+void Title::ExecuteExit(SceneManager*) {
 
 }
 
-void Title::Draw(SceneManager* manager) {
+void Title::ExecuteDraw(SceneManager* manager) {
 	gl::color(Color(1.f, 0.f, 0.f));
 	gl::setMatrices(uiCamera);
 
