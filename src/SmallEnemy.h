@@ -22,16 +22,13 @@ class SmallEnemy : public State<EnemyManager> {
 
 	bool OutOfViewRange(ci::Vec3f&, float, float);
 
-	ci::Vec3f Separate(std::list<SmallEnemy>&);
-	ci::Vec3f Alignment(std::list<SmallEnemy>&);
-	ci::Vec3f Cohesion(std::list<SmallEnemy>&);
+	ci::Vec3f Separate();
+	ci::Vec3f Alignment();
+	ci::Vec3f Cohesion();
 
 public:
-	SmallEnemy(float s);
+	SmallEnemy();
 	~SmallEnemy() {};
-
-	ci::Vec3f GetPos() { return position; }
-	float GetScale() { return scale; }
 
 	void ExecuteEnter(EnemyManager*);
 	void ExecuteUpdate(EnemyManager*);

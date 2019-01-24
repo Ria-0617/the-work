@@ -4,16 +4,8 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-SmallEnemy::SmallEnemy(float s) {
-	//position = Vec3f(30.f, 30.f, 30.f);
-	position = Vec3f(randFloat(-30.f, 30.f), randFloat(-30.f, 30.f), randFloat(-30.f, 30.f));
-	angle = MyFanc::ToRadians(Vec3f(randFloat(0.f, 360.f), randFloat(0.f, 360.f), randFloat(0.f, 360.f)));
-	direction = Matrix44f::createRotation(angle) * Vec3f(1.f, 0.f, 0.f);
-	scale = randFloat(0.5f, s);
-	color = Color(0.f, 0.f, 1.f);
-
-	viewAngleRange = toRadians(45.f);
-	viewDistanceRange = 15.f;
+SmallEnemy::SmallEnemy() {
+	
 }
 
 bool SmallEnemy::OutOfViewRange(Vec3f& pos, float viewAngleRange, float viewDistanceRange) {
@@ -25,21 +17,23 @@ bool SmallEnemy::OutOfViewRange(Vec3f& pos, float viewAngleRange, float viewDist
 	return false;
 }
 
-Vec3f SmallEnemy::Separate(list<SmallEnemy>& smallEnemys) {
+Vec3f SmallEnemy::Separate() {
 	Vec3f relativePosition = Vec3f(0, 0, 0);
 	Vec3f toAgent;
 
-	for (auto itr = smallEnemys.begin(); itr != smallEnemys.end(); ++itr) {
+	//for (auto itr = Spowner->GetEnemyState()->GetCurrentEnemys().begin(); itr != Spowner->GetEnemyState()->GetCurrentEnemys().end(); ++itr) {
+	for (auto itr : Spowner->GetEnemys())
+	{
 		if (position.distance(itr->position) > viewDistanceRange) continue;
 
-		toAgent = (position - itr->position).safeNormalized();
-		relativePosition += toAgent;
-	}
-
-	return relativePosition;
+	toAgent = (position - itr->position).safeNormalized();
+	relativePosition += toAgent;
 }
 
-Vec3f SmallEnemy::Alignment(list<SmallEnemy>&smallEnemys) {
+return relativePosition;
+}
+
+Vec3f SmallEnemy::Alignment() {
 	int neiborCount = 0;
 	Vec3f ralativeAngle = Vec3f(0, 0, 0);
 
@@ -61,7 +55,7 @@ Vec3f SmallEnemy::Alignment(list<SmallEnemy>&smallEnemys) {
 	return direction;
 }
 
-Vec3f SmallEnemy::Cohesion(list<SmallEnemy>&smallEnemys) {
+Vec3f SmallEnemy::Cohesion() {
 	Vec3f centerPos = Vec3f(0, 0, 0);
 
 	int neiborCount = 0;
@@ -84,12 +78,12 @@ void SmallEnemy::ExecuteEnter(EnemyManager*) {
 
 }
 
-void SmallEnemy::ExecuteUpdate(EnemyManager*) {
+void SmallEnemy::ExecuteUpdate(EnemyManager* m) {
 	Vec3f v;
 	v = position;
-	v += Separate(Spowner->getEnemys());
-	v += Alignment(smallEnemys);
-	v += Cohesion(smallEnemys);
+	v += Separate();
+	v += Alignment();
+	v += Cohesion();
 
 	position += ((v - position) * 0.08f);
 

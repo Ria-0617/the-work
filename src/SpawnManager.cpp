@@ -12,12 +12,16 @@ SpawnManager* SpawnManager::Instance() {
 
 void SpawnManager::EnemySpowner(float s) {
 	if (enemys.size() > enemyMaxNum) return;
-	auto p = make_shared<SmallEnemy>(s);
+	auto p = make_shared<EnemyManager>(1.f);
 	enemys.push_back(p);
 }
 
-//void SpawnManager::EnemyDraw() {
-//	for (const auto& itr : enemys) { 
-//		itr->ExecuteDraw();
-//	}
-//}
+void SpawnManager::EnemyUpdate() {
+	for (auto itr : enemys)
+		itr->Update();
+}
+
+void SpawnManager::EnemyDraw() {
+	for (auto itr : enemys)
+		itr->Draw();
+}

@@ -2,6 +2,8 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
+
+#include "State.h"
 #include "LargeEnemy.h"
 #include "SmallEnemy.h"
 
@@ -12,17 +14,21 @@ class SpawnManager {
 	SpawnManager() = default;
 	~SpawnManager() = default;
 
-	SpawnManager(const SpawnManager&);
-	SpawnManager& operator=(const SpawnManager&) {};
-
-	std::list<std::shared_ptr<SmallEnemy>> enemys;
+	std::list<std::shared_ptr<EnemyManager>> enemys;
 	const int enemyMaxNum = 100;
 
 public:
+	SpawnManager(const SpawnManager&) = delete;
+	SpawnManager& operator=(const SpawnManager&) = delete;
+	SpawnManager(SpawnManager&&) = delete;
+	SpawnManager& operator=(SpawnManager&&) = delete;
+
 	static SpawnManager* Instance();
 
-	std::list<std::shared_ptr<SmallEnemy>> getEnemys() { return enemys; }
+	std::list<std::shared_ptr<EnemyManager>> GetEnemys() { return enemys; }
 
 	void EnemySpowner(float s);
+
+	void EnemyUpdate();
 	void EnemyDraw();
 };

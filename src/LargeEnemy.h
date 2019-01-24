@@ -20,7 +20,7 @@ class LargeEnemy : public State<EnemyManager> {
 
 	bool OutOfViewRange(ci::Vec3f&, float, float);
 public:
-	LargeEnemy(float s);
+	LargeEnemy(EnemyManager*);
 	~LargeEnemy() {};
 
 	ci::Vec3f GetPos() { return position; }

@@ -2,6 +2,7 @@
 
 using namespace ci;
 using namespace ci::app;
+using namespace std;
 
 void TemplateProjectApp::prepareSettings(Settings* settings) {
 	settings->setWindowSize(800, 600);
@@ -9,7 +10,7 @@ void TemplateProjectApp::prepareSettings(Settings* settings) {
 
 void TemplateProjectApp::setup()
 {
-	sceneManager = std::make_unique<SceneManager>();
+	sceneManager = make_unique<SceneManager>();
 }
 
 void TemplateProjectApp::shutdown() {
