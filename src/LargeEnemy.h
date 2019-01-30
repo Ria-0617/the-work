@@ -6,9 +6,9 @@
 
 #include <list>
 #include "Func.h"
-#include "EnemyManager.h"
+#include "BaseEnemy.h"
 
-class LargeEnemy : public State<EnemyManager> {
+class LargeEnemy : public State<BaseEnemy> {
 	ci::Vec3f position;
 	ci::Vec3f angle;
 	ci::Vec3f direction;
@@ -20,14 +20,14 @@ class LargeEnemy : public State<EnemyManager> {
 
 	bool OutOfViewRange(ci::Vec3f&, float, float);
 public:
-	LargeEnemy(EnemyManager*);
+	LargeEnemy(BaseEnemy*);
 	~LargeEnemy() {};
 
 	ci::Vec3f GetPos() { return position; }
 	float GetScale() { return scale; }
 
-	void ExecuteEnter(EnemyManager*);
-	void ExecuteUpdate(EnemyManager*);
-	void ExecuteDraw(EnemyManager*);
-	void ExecuteExit(EnemyManager*);
+	void ExecuteEnter(BaseEnemy*);
+	void ExecuteUpdate(BaseEnemy*);
+	void ExecuteDraw(BaseEnemy*);
+	void ExecuteExit(BaseEnemy*);
 };

@@ -7,9 +7,9 @@
 #include <list>
 #include "Func.h"
 #include "SpawnManager.h"
-#include "EnemyManager.h"
+#include "BaseEnemy.h"
 
-class SmallEnemy : public State<EnemyManager> {
+class SmallEnemy : public State<BaseEnemy> {
 
 	ci::Vec3f position;
 	ci::Vec3f angle;
@@ -30,10 +30,10 @@ public:
 	SmallEnemy();
 	~SmallEnemy() {};
 
-	void ExecuteEnter(EnemyManager*);
-	void ExecuteUpdate(EnemyManager*);
-	void ExecuteDraw(EnemyManager*);
-	void ExecuteExit(EnemyManager*);
+	void ExecuteEnter(BaseEnemy*);
+	void ExecuteUpdate(BaseEnemy*);
+	void ExecuteDraw(BaseEnemy*);
+	void ExecuteExit(BaseEnemy*);
 };
 
 

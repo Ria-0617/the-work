@@ -4,7 +4,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-LargeEnemy::LargeEnemy(EnemyManager* m) {
+LargeEnemy::LargeEnemy(BaseEnemy* m) {
 	
 }
 
@@ -17,16 +17,16 @@ bool LargeEnemy::OutOfViewRange(Vec3f& pos, float viewAngleRange, float viewDist
 	return false;
 }
 
-void LargeEnemy::ExecuteUpdate(EnemyManager*) {
+void LargeEnemy::ExecuteUpdate(BaseEnemy*) {
 	
 }
 
-void LargeEnemy::ExecuteEnter(EnemyManager*) {
+void LargeEnemy::ExecuteEnter(BaseEnemy*) {
 
 }
 
 
-void LargeEnemy::ExecuteDraw(EnemyManager*) {
+void LargeEnemy::ExecuteDraw(BaseEnemy*) {
 	gl::pushModelView();
 
 	gl::color(color);
@@ -35,6 +35,6 @@ void LargeEnemy::ExecuteDraw(EnemyManager*) {
 	gl::popModelView();
 }
 
-void LargeEnemy::ExecuteExit(EnemyManager*) {
+void LargeEnemy::ExecuteExit(BaseEnemy*) {
 
 }

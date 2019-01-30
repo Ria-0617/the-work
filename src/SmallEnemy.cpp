@@ -74,11 +74,11 @@ Vec3f SmallEnemy::Cohesion() {
 	return (centerPos - position).safeNormalized();
 }
 
-void SmallEnemy::ExecuteEnter(EnemyManager*) {
+void SmallEnemy::ExecuteEnter(BaseEnemy*) {
 
 }
 
-void SmallEnemy::ExecuteUpdate(EnemyManager* m) {
+void SmallEnemy::ExecuteUpdate(BaseEnemy* m) {
 	Vec3f v;
 	v = position;
 	v += Separate();
@@ -90,7 +90,7 @@ void SmallEnemy::ExecuteUpdate(EnemyManager* m) {
 	MyFanc::MoveLimit(position,/*limitValue = */50, /*moveValue = */100);
 }
 
-void SmallEnemy::ExecuteDraw(EnemyManager*) {
+void SmallEnemy::ExecuteDraw(BaseEnemy*) {
 	gl::pushModelView();
 
 	gl::color(color);
@@ -99,6 +99,6 @@ void SmallEnemy::ExecuteDraw(EnemyManager*) {
 	gl::popModelView();
 }
 
-void SmallEnemy::ExecuteExit(EnemyManager*) {
+void SmallEnemy::ExecuteExit(BaseEnemy*) {
 
 }

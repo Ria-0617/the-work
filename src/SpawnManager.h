@@ -14,7 +14,7 @@ class SpawnManager {
 	SpawnManager() = default;
 	~SpawnManager() = default;
 
-	std::list<std::shared_ptr<EnemyManager>> enemys;
+	std::list<std::shared_ptr<BaseEnemy>> enemys;
 	const int enemyMaxNum = 100;
 
 public:
@@ -25,7 +25,7 @@ public:
 
 	static SpawnManager* Instance();
 
-	std::list<std::shared_ptr<EnemyManager>> GetEnemys() { return enemys; }
+	std::list<std::shared_ptr<BaseEnemy>> GetEnemys() { return enemys; }
 
 	void EnemySpowner(float s);
 
