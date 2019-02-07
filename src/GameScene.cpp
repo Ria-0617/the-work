@@ -21,10 +21,6 @@ void GameScene::ExecuteEnter(SceneManager*) {
 }
 
 void GameScene::ExecuteUpdate(SceneManager*) {
-	/*if (ui->GetTimer() <= 0) {
-		sceneManager->ChangeScene(new Result());
-	}*/
-
 	player->Update(camera->GetQuaternion());
 	camera->Update(player->GetPosition(), player->GetScale());
 	ui->Update(player->NomalizedExp());
@@ -52,7 +48,7 @@ void GameScene::ExecuteExit(SceneManager*) {
 
 }
 
-void GameScene::ExecuteDraw(SceneManager* manager) {
+void GameScene::ExecuteDraw(SceneManager* m) {
 #pragma region enable
 	gl::enableDepthRead();
 	gl::enableDepthWrite();
@@ -77,5 +73,5 @@ void GameScene::ExecuteDraw(SceneManager* manager) {
 	ui->Draw();
 
 	if (joy->IsPressedButton(joy->CROSS))
-		manager->ChangeScene(new Title());
+		m->GetFSM()->ChangeState(new Title());
 }

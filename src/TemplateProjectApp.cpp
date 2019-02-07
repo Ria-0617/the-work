@@ -10,11 +10,11 @@ void TemplateProjectApp::prepareSettings(Settings* settings) {
 
 void TemplateProjectApp::setup()
 {
-	sceneManager = make_unique<SceneManager>();
+	sceneManager = new SceneManager();
 }
 
 void TemplateProjectApp::shutdown() {
-
+	delete sceneManager;
 }
 
 void TemplateProjectApp::update()

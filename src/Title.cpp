@@ -32,6 +32,6 @@ void Title::ExecuteDraw(SceneManager* manager) {
 	gl::setMatrices(uiCamera);
 
 	if (joy->IsPressedButton(joy->CIRCLE) || mouseEvent.isLeft()) {
-		manager->ChangeScene(new GameScene());
+		manager->GetFSM()->ChangeState(new GameScene());
 	}
 }

@@ -4,8 +4,9 @@
 #include "cinder/gl/gl.h"
 
 #include "State.h"
-#include "LargeEnemy.h"
-#include "SmallEnemy.h"
+
+#include "BaseGameEntitiy.h"
+#include "BaseEnemy.h"
 
 #define Spowner SpawnManager::Instance()
 
@@ -14,7 +15,7 @@ class SpawnManager {
 	SpawnManager() = default;
 	~SpawnManager() = default;
 
-	std::list<std::shared_ptr<BaseEnemy>> enemys;
+	std::list<BaseEnemy*> enemys;
 	const int enemyMaxNum = 100;
 
 public:
@@ -25,9 +26,9 @@ public:
 
 	static SpawnManager* Instance();
 
-	std::list<std::shared_ptr<BaseEnemy>> GetEnemys() { return enemys; }
+	std::list<BaseEnemy*> GetEnemys() { return enemys; }
 
-	void EnemySpowner(float s);
+	void EnemySpowner();
 
 	void EnemyUpdate();
 	void EnemyDraw();

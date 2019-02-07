@@ -11,15 +11,16 @@
 
 class Player {
 private:
-	ci::Vec3f position;
-	ci::Quatf direction;
-	float speed;
-	float scale;
+	ci::Vec3f m_vPosition;
+	ci::Vec3f m_vVelocity;
+	ci::Quatf m_qDirection;
+	float m_fSpeed;
+	float m_fScale;
 
 	float experience;
 	float maxExperience;
 
-	float limitPositoin;
+	float m_fLimitPositoin;
 
 public:
 	Player();
@@ -28,8 +29,8 @@ public:
 	void Update(const ci::Quatf& q);
 	void Draw();
 
-	ci::Vec3f GetPosition() { return position; }
-	float GetScale() { return scale; }
+	ci::Vec3f GetPosition() { return m_vPosition; }
+	float GetScale() { return m_fScale; }
 
 	void PulsExp(float value) { experience += value; }
 	float GetExp() { return experience; }

@@ -4,11 +4,9 @@
 #include "cinder/gl/gl.h"
 
 #include "SceneManager.h"
-#include "Title.h"
-#include "GameScene.h"
 
 class TemplateProjectApp : public ci::app::AppNative{
-	std::unique_ptr<SceneManager> sceneManager;
+	SceneManager* sceneManager;
 
 public:
 	void prepareSettings(Settings* settings);

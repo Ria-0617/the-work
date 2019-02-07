@@ -10,10 +10,9 @@ SpawnManager* SpawnManager::Instance() {
 	return &instance;
 }
 
-void SpawnManager::EnemySpowner(float s) {
+void SpawnManager::EnemySpowner() {
 	if (enemys.size() > enemyMaxNum) return;
-	auto p = make_shared<BaseEnemy>(1.f);
-	enemys.push_back(p);
+	//enemys.push_back(new BaseEnemy());
 }
 
 void SpawnManager::EnemyUpdate() {

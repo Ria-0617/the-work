@@ -2,29 +2,31 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
-#include "cinder//Rand.h"
 
 #include "Func.h"
-#include "StateMachine.h"
 
-#include "LargeEnemy.h"
+#include "MovingEntity.h"
 
-class BaseEnemy {
-	ci::Vec3f position;
-	ci::Vec3f angle;
-	ci::Vec3f direction;
-	float scale;
-	ci::Color color;
+#include "SteeringBehaviors.h"
 
-	float viewAngleRange;
-	float viewDistanceRange;
+class SteeringBehaviors;
 
-	std::shared_ptr<StateMachine<BaseEnemy>> pStateMachine;
+class BaseEnemy : public MovingEntity {
+	
+	SteeringBehaviors* m_pSteering;
+
+	ci::Vec3f m_vFront;
 
 public:
 
-	BaseEnemy(float s);
-	~BaseEnemy() {};
+	BaseEnemy(ci::Vec3f position,
+		ci::Vec3f velocity,
+		ci::Vec3f angle,
+		float mass,
+		float scale,
+		float maxSpeed,
+		float turnRate);
+	~BaseEnemy();
 
 	void Update();
 	void Draw();

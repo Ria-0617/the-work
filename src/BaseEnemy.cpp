@@ -4,18 +4,51 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-BaseEnemy::BaseEnemy(float s) :position(Vec3f(randFloat(-30.f, 30.f), randFloat(-30.f, 30.f), randFloat(-30.f, 30.f))),
-angle(MyFanc::ToRadians(Vec3f(randFloat(0.f, 360.f), randFloat(0.f, 360.f), randFloat(0.f, 360.f)))),
-direction(Matrix44f::createRotation(angle) * Vec3f(1.f, 0.f, 0.f)),
-scale(randFloat(s - 5.f, s + 5.0f)), color(Color(1.f, 0.f, 0.f)), viewAngleRange(toRadians(45.f)), viewDistanceRange(15.f) {
-	pStateMachine = make_shared<StateMachine<BaseEnemy>>(this);
-	pStateMachine->SetCurrentState(make_shared<LargeEnemy>(this));
+BaseEnemy::BaseEnemy(ci::Vec3f position,
+	ci::Vec3f velocity,
+	ci::Vec3f angle,
+	float mass,
+	float scale,
+	float maxSpeed,
+	float turnRate) :
+	MovingEntity(position,
+		velocity,
+		angle,
+		mass,
+		Vec3f(scale, scale, scale),
+		maxSpeed,
+		turnRate)
+{
+	m_pSteering = new SteeringBehaviors(this);
+
+	m_vFront = Vec3f(0.f, 0.f, 1.f);
+}
+
+BaseEnemy::~BaseEnemy() {
+	delete m_pSteering;
 }
 
 void BaseEnemy::Update() {
-	pStateMachine->Update();
+	Vec3f SteeringForce = m_pSteering->Calculate();
+
+	Vec3f acceleration = SteeringForce / m_fMass;
+
+	m_vVelocity += acceleration;
+	MyFanc::Clamp(m_vVelocity, 0.f, m_fMaxSpeed);
+
+	m_vPosition += m_vVelocity;
+
+	if (m_vVelocity.lengthSquared() > 0.0001f) {
+		m_qDirection *= Quatf(m_vFront, m_vVelocity.normalized());
+		m_vFront = m_vVelocity.normalized();
+	}
 }
 
 void BaseEnemy::Draw() {
-	pStateMachine->Draw();
+	gl::pushModelView();
+	gl::translate(m_vPosition);
+	gl::rotate(m_qDirection);
+	gl::color(m_color);
+	gl::drawCube(Vec3f(0.f, 0.f, 0.f), m_vScale);
+	gl::popModelView();
 }

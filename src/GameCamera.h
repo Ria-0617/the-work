@@ -17,7 +17,7 @@ private:
 	ci::Vec3f position;
 	float rotationSpeed;
 
-	ci::Vec3f upVector;
+	ci::Vec3f m_vUp;
 
 	ci::Quatf quat;
 

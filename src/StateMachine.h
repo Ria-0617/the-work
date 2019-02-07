@@ -8,30 +8,33 @@
 template<class entity_type>
 class StateMachine {
 private:
-	std::shared_ptr<entity_type> pOwner;
-	std::shared_ptr<State<entity_type>> pCurrentState;
+	entity_type* m_pOwner;
+	State<entity_type>* m_pCurrentState;
 
 public:
-	StateMachine(std::shared_ptr<entity_type> owner) :pOwner(owner), pCurrentState(NULL) {};
-	void SetCurrentState(std::shared_ptr<State<entity_type>> s) { pCurrentState = s };
+	StateMachine(entity_type* owner) :m_pOwner(owner), m_pCurrentState(NULL) {};
+
+	~StateMachine() {
+		delete m_pOwner;
+		delete m_pCurrentState;
+	}
+
+	void SetCurrentState(State<entity_type>* s) { m_pCurrentState = s; }
 
 	void Update() {
-		if (pCurrentState) pCurrentState->ExecuteUpdate(pOwner);
+		if (m_pCurrentState) m_pCurrentState->ExecuteUpdate(m_pOwner);
 	};
 
 	void Draw() {
-		if (pCurrentState) pCurrentState->ExecuteDraw(pOwner);
+		if (m_pCurrentState) m_pCurrentState->ExecuteDraw(m_pOwner);
 	};
 	
 
-	void ChangeState(std::shared_ptr<State<entity_type>> pNewState) {
+	void ChangeState(State<entity_type>* pNewState) {
 		assert(pNewState && "<StateMachine::ChangeState>: trying to change to a null state");
 
-		pCurrentState->ExecuteExit(pOwner);
-		pCurrentState = pNewState;
-		pCurrentState->ExecuteEnter(pOwner);
+		m_pCurrentState->ExecuteExit(m_pOwner);
+		m_pCurrentState = pNewState;
+		m_pCurrentState->ExecuteEnter(m_pOwner);
 	}
-
-	std::shared_ptr<State<entity_type>> GetCurrentState() { return pCurrentState; }
-
 };

@@ -5,23 +5,14 @@ using namespace ci::app;
 using namespace std;
 
 SceneManager::SceneManager() {
-	//currentScene = std::make_unique<Title>();
-	currentScene = new Title();
+	m_pStateMachine = new StateMachine<SceneManager>(this);
+	m_pStateMachine->SetCurrentState(new Title());
 }
 
 void SceneManager::Update() {
-	currentScene->ExecuteUpdate(this);
+	m_pStateMachine->Update();
 }
 
 void SceneManager::Draw() {
-	currentScene->ExecuteDraw(this);
-}
-
-void SceneManager::ChangeScene(State<SceneManager>* newScene) {
-	assert(currentScene && newScene);
-
-	currentScene->ExecuteExit(this);
-	//currentScene.reset(newScene);
-	currentScene = newScene;
-	currentScene->ExecuteEnter(this);
+	m_pStateMachine->Draw();
 }
